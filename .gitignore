@@ -95,3 +95,11 @@ ENV/
 
 # Generated files
 pycocotools/_*.c
+./test1
+./test2
+./test3
+./scnet
+./vitpose
+./hrnetw48
+*.pdf
+

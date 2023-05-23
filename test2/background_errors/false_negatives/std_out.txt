@@ -1,0 +1,68 @@
+Running Analysis: [False Negatives]
+
+Num. annotations: [110232]
+OKS thresh: [0.500000]
+ - Matches:      [109271]
+ - Bckgd. FN:    [961]
+OKS thresh: [0.550000]
+ - Matches:      [109198]
+ - Bckgd. FN:    [1034]
+OKS thresh: [0.600000]
+ - Matches:      [109172]
+ - Bckgd. FN:    [1060]
+OKS thresh: [0.650000]
+ - Matches:      [108843]
+ - Bckgd. FN:    [1389]
+OKS thresh: [0.700000]
+ - Matches:      [107779]
+ - Bckgd. FN:    [2453]
+OKS thresh: [0.750000]
+ - Matches:      [106957]
+ - Bckgd. FN:    [3275]
+OKS thresh: [0.800000]
+ - Matches:      [106300]
+ - Bckgd. FN:    [3932]
+OKS thresh: [0.850000]
+ - Matches:      [105771]
+ - Bckgd. FN:    [4461]
+OKS thresh: [0.900000]
+ - Matches:      [104474]
+ - Bckgd. FN:    [5758]
+OKS thresh: [0.950000]
+ - Matches:      [98764]
+ - Bckgd. FN:    [11468]
+
+Background False Negative Errors:
+Image_id, ground_truth id, num_keypoints: [38912][38912][17]
+Image_id, ground_truth id, num_keypoints: [38913][38913][17]
+Image_id, ground_truth id, num_keypoints: [38914][38914][17]
+Image_id, ground_truth id, num_keypoints: [38915][38915][17]
+Image_id, ground_truth id, num_keypoints: [40108][40108][17]
+Image_id, ground_truth id, num_keypoints: [38909][38909][17]
+Image_id, ground_truth id, num_keypoints: [38910][38910][17]
+Image_id, ground_truth id, num_keypoints: [38911][38911][17]
+
+Background False Negatives Bounding Box Dimenstions:
+ - Min width:  [136]
+ - Max width:  [438]
+ - Min height: [136]
+ - Max height: [438]
+
+Number of people in images with Background False Negatives:
+ - No people:         [0]
+ - One person:        [961]
+ - Small group (2-4): [0]
+ - Large Group (5-8): [0]
+ - Crowd       (>=9): [0]
+
+Area size (in pixels) of Background False Negatives:
+ - Small    (0,1024):            [0]
+ - Medium   (1024,4096):         [0]
+ - Large    (4096,9216):         [0]
+ - X-Large  (9216,16384):        [164]
+ - XX-Large (16384,10000000000): [797]
+
+Number of visible keypoints for Background False Negatives:
+ - [17] kpts: [961] False Neg.
+
+Done, (t=48.52s).

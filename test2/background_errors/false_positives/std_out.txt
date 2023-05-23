@@ -1,0 +1,71 @@
+Running Analysis: [Background False Positives]
+
+Num. detections: [110232]
+OKS thresh: [0.500000]
+ - Matches:      [109271]
+ - Bckgd. FP:    [961]
+OKS thresh: [0.550000]
+ - Matches:      [109198]
+ - Bckgd. FP:    [1034]
+OKS thresh: [0.600000]
+ - Matches:      [109172]
+ - Bckgd. FP:    [1060]
+OKS thresh: [0.650000]
+ - Matches:      [108843]
+ - Bckgd. FP:    [1389]
+OKS thresh: [0.700000]
+ - Matches:      [107779]
+ - Bckgd. FP:    [2453]
+OKS thresh: [0.750000]
+ - Matches:      [106957]
+ - Bckgd. FP:    [3275]
+OKS thresh: [0.800000]
+ - Matches:      [106300]
+ - Bckgd. FP:    [3932]
+OKS thresh: [0.850000]
+ - Matches:      [105771]
+ - Bckgd. FP:    [4461]
+OKS thresh: [0.900000]
+ - Matches:      [104474]
+ - Bckgd. FP:    [5758]
+OKS thresh: [0.950000]
+ - Matches:      [98764]
+ - Bckgd. FP:    [11468]
+
+Background False Positive Errors:
+Image_id, detection_id, score: [39968][39968][0.974]
+Image_id, detection_id, score: [39969][39969][0.974]
+Image_id, detection_id, score: [39424][39424][0.973]
+Image_id, detection_id, score: [39970][39970][0.973]
+Image_id, detection_id, score: [40005][40005][0.807]
+Image_id, detection_id, score: [39060][39060][0.807]
+Image_id, detection_id, score: [40004][40004][0.802]
+Image_id, detection_id, score: [39071][39071][0.797]
+
+Percentiles of the scores of all Detections:
+ - 20th perc. score:[0.957]; num. dts:[22048]
+ - 40th perc. score:[0.966]; num. dts:[44094]
+ - 60th perc. score:[0.971]; num. dts:[66139]
+ - 80th perc. score:[0.974]; num. dts:[88186]
+
+Background False Positives Bounding Box Dimenstions:
+ - Min width:  [143]
+ - Max width:  [143]
+ - Min height: [340]
+ - Max height: [340]
+
+Number of people in images with Background False Positives:
+ - No people:         [0]
+ - One person:        [1]
+ - Small group (2-4): [0]
+ - Large Group (5-8): [0]
+ - Crowd       (>=9): [0]
+
+Area size (in pixels) of Background False Positives:
+ - Small    (0,1024):            [0]
+ - Medium   (1024,4096):         [0]
+ - Large    (4096,9216):         [0]
+ - X-Large  (9216,16384):        [0]
+ - XX-Large (16384,10000000000): [1]
+
+Done, (t=34.07s).

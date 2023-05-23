@@ -123,9 +123,10 @@ def localizationErrors( coco_analyze, imgs_info, saveDir ):
     f.write(" - Swap:      %s\n"%swap_keypoints)
     f.write(" - Miss:      %s\n"%miss_keypoints)
 
-    KEYPOINTS_L = ['Nose','Eyes','Ears','Should.','Elbows','Wrists','Hips','Knees','Ankles']
-    KEYPOINTS_I = [[0],[1,2],[3,4],[5,6],[7,8],[9,10],[11,12],[13,14],[15,16]]
-
+#   KEYPOINTS_L = ['Nose','Eyes','Ears','Should.','Elbows','Wrists','Hips','Knees','Ankles'] # symetic
+#    KEYPOINTS_I = [[0],[1,2],[3,4],[5,6],[7,8],[9,10],[11,12],[13,14],[15,16]] # idx
+    KEYPOINTS_L = ['MidHip', 'Hips', 'Knees', 'Ankles', 'Spine', 'Throx', 'Nose', 'Head', 'Shoulds', 'Elbows', 'Wrists']
+    KEYPOINTS_I = [[0], [1, 4], [2, 5], [3, 6], [7], [8], [9], [10], [14, 11], [15, 12], [16, 13]]
     ####################################
     err_vecs = [jitt_keypoints,inv_keypoints,swap_keypoints,miss_keypoints]
     for j, err_type in enumerate(['Jitter', 'Inversion', 'Swap', 'Miss']):
@@ -135,7 +136,10 @@ def localizationErrors( coco_analyze, imgs_info, saveDir ):
             tot_errs = 0
             for l in i:
                 tot_errs += err_vecs[j][l]
-            ERRORS.append(tot_errs/float(sum(err_vecs[j])))
+            if sum(err_vecs[j]) != 0:
+                ERRORS.append(tot_errs/float(sum(err_vecs[j])))
+            elif sum(err_vecs[j]) == 0:
+                ERRORS.append(1)
 
         for lind, l in enumerate(KEYPOINTS_L):
             label_str = '{:7s}: {:2.1f}'.format(l,100*ERRORS[lind])
@@ -145,6 +149,7 @@ def localizationErrors( coco_analyze, imgs_info, saveDir ):
         rect = -.03,0,0.45,0.9
         ax1 = fig.add_axes(rect)
         colors = [c.rgb for c in list(Color("white").range_to(Color(COLORS[j]),len(KEYPOINTS_L)))]
+
         patches, autotexts = ax1.pie( ERRORS, colors=colors)
         lgd=fig.legend(patches, TOT_LABELS, bbox_to_anchor=(.45, .9),
             loc="upper left",ncol=2,fancybox=True, shadow=True,fontsize=20)
@@ -168,7 +173,9 @@ def localizationErrors( coco_analyze, imgs_info, saveDir ):
             kp = np.array(t['keypoints'])
             x = kp[0::3]; y = kp[1::3]; v = kp[2::3]
 
+
             # show the image
+
             I = io.imread(imgs_info[t['image_id']]['coco_url'])
             plt.figure(figsize=(10,10)); plt.axis('off')
             plt.imshow(I)

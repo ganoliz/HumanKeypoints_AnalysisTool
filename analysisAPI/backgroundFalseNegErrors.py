@@ -3,11 +3,12 @@ import os, time
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.path as mplPath
-from scipy.misc import imresize
+# from scipy.misc import imresize
 import skimage.io as io
 
 # package imports 
 from . import utilities
+from PIL import Image
 
 def backgroundFalseNegErrors( coco_analyze, imgs_info, saveDir ):
     loc_dir = saveDir + '/background_errors/false_negatives'
@@ -138,16 +139,18 @@ def backgroundFalseNegErrors( coco_analyze, imgs_info, saveDir ):
         x, y = np.meshgrid(np.arange(nx), np.arange(ny))
         x, y = x.flatten(), y.flatten()
         points = np.vstack((x,y)).T
+        if 'segmentation' in b:
+            for poly_verts in b['segmentation']:
+                path = mplPath.Path(np.array([[x,y] for x,y in zip(poly_verts[0::2],poly_verts[1::2])]))
 
-        for poly_verts in b['segmentation']:
-            path = mplPath.Path(np.array([[x,y] for x,y in zip(poly_verts[0::2],poly_verts[1::2])]))
+                grid = path.contains_points(points)
+                grid = grid.reshape((ny,nx))
 
-            grid = path.contains_points(points)
-            grid = grid.reshape((ny,nx))
-
-            the_mask += np.array(grid, dtype=int)
-        segm_heatmap += imresize(the_mask,(128,128))
-
+                the_mask += np.array(grid, dtype=int)
+            #segm_heatmap += imresize(the_mask,(128,128))
+            segm_heatmap += np.array(Image.fromarray(the_mask).resize((128, 128)))
+        else:
+            print('gt annotation have no key: segmentation')
     fig = plt.figure(figsize=(10,10))
     ax = plt.subplot(111)
     ax.imshow(segm_heatmap)

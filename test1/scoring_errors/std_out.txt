@@ -1,0 +1,11 @@
+Running Analysis: [Scoring Errors]
+
+Num. of imgs with sub-optimal detections order: [0]/[110232] (0.00%).
+
+Num. of scoring errors:
+ - Original Score: 0
+ - Optimal Score:  0
+
+Most relevant scoring errors:
+
+Done, (t=22.22s).

@@ -1,0 +1,198 @@
+\documentclass[10pt,onecolumn,letterpaper]{article}
+
+\setlength{\textheight}{8.875in}
+\setlength{\textwidth}{6.875in}
+\setlength{\columnsep}{0.3125in}
+\setlength{\topmargin}{0in}
+\setlength{\headheight}{0in}
+\setlength{\headsep}{0in}
+\setlength{\parindent}{1pc}
+\setlength{\oddsidemargin}{-.304in}
+\setlength{\evensidemargin}{-.304in}
+
+\usepackage{times}
+\usepackage{epsfig}
+\usepackage{multirow}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{wrapfig}
+\usepackage{lscape}
+\usepackage{datetime}
+
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+
+\usepackage[breaklinks=true,bookmarks=false]{hyperref}
+\def\httilde{\mbox{\tt\raisebox{-.5ex}{\symbol{126}}}}
+
+\begin{document}
+
+% TITLE
+\title{Benchmarking and Error Diagnosis in Multi-Instance Pose Estimation\footnote{Code available at: \texttt{https://github.com/matteorr/coco-analyze}}\\
+Automatically Generated Evaluation Report\\[1.5ex]
+\textbf{Team Name:}  \texttt{\detokenize{Vision}}\\[1.5ex]
+\textbf{Version:}    \texttt{\detokenize{2}}\\[1.5ex]
+\textbf{Split Name:} \texttt{\detokenize{h36m_coco_test.json}}}
+\date{\today - \currenttime}
+\maketitle
+
+% SECTIONS
+
+% HUMAN SKELETON COLOR CODING
+\section{Human Pose and Skeleton Color Coding}
+\begin{wrapfigure}{l}{0.5\textwidth}
+\includegraphics[width=\linewidth]{./latex/color_coding.pdf}
+\caption{ {\small \textbf{Detection's Skeleton Color Coding.}}}
+\end{wrapfigure}
+We adopt the following color coding when visualizing an algorithm's keypoint detections:
+\begin{itemize}
+    \item The location of the left and right parts of the body is indicated respectively with red and green dots; the location of the nose is plotted in blue.%following the standard used for vessel and aircraft navigation lights
+    \item Face keypoints (\textit{nose}, \textit{eyes}, \textit{ears}) are connected by purple lines.
+    \item Upper-body keypoints (\textit{shoulders}, \textit{elbows}, \textit{wrists}) are connected by blue lines.
+    \item Torso keypoints (\textit{shoulders}, \textit{hips}) are connected by yellow lines.
+    \item Lower-body keypoints (\textit{hips}, \textit{knees}, \textit{ankles}) are connected by brown lines.
+\end{itemize}
+\clearpage
+
+% OVERALL DETECTOR PERFORMANCE
+\section{Overall Detector Characteristics}
+\begin{itemize}
+    \item \textbf{Num. Detections:} 110232
+    \item \textbf{Num. Images [with Detections]:} 110232 [110232]
+\end{itemize}
+\vspace{-5mm}
+\begin{figure}[h!]
+\centering
+\begin{subfigure}{.4\linewidth}
+\centering
+\includegraphics[width=\linewidth]{./hrnetw48/prc_[Vision][medium][20].pdf}
+\label{fig:sub1}
+\end{subfigure}%
+\begin{subfigure}{.4\linewidth}
+\centering
+\includegraphics[width=\linewidth]{./hrnetw48/prc_[Vision][large][20].pdf}
+\label{fig:sub2}
+\end{subfigure}\\[1ex]
+\begin{subfigure}{\linewidth}
+\centering
+\includegraphics[width=.4\linewidth]{./hrnetw48/prc_[Vision][all][20].pdf}
+\label{fig:sub3}
+\end{subfigure}
+\vspace{-3mm}
+\caption{ {\small \textbf{Precision Recall Curves at all OKS thresholds and area ranges.} }}
+\label{fig:test}
+\end{figure}
+
+% AP IMPROVEMENT SECTION
+\vspace{-5mm}
+\section{Error Impact on AP}
+\vspace{-3mm}
+\begin{figure}[h!]
+\centering
+\begin{tabular}{cc}
+\includegraphics[width=.35\linewidth]{./hrnetw48/AP_improvement/ap_improv_areas_all.pdf} &
+\includegraphics[width=.3\linewidth]{./hrnetw48/AP_improvement/ap_improv_oks.pdf}\\
+\end{tabular}
+\caption{ {\small \textbf{AP Improvement.} The AP improvement after errors of each type are completely removed,
+(Left) averaged over all OKS evaluation thresholds at the area range including all detections;
+(Right) averaged across area ranges at all OKS evaluation thresholds.
+The value of .85 OKS represents the threshold above which also human annotators have a significant disagreement (around 30\%) in estimating the correct position of a keypoint.}}
+\end{figure}
+
+\clearpage
+
+% LOCALIZATION ERRORS SECTION
+\section{Localization Errors}
+
+\begin{figure}[h!]
+\centering
+\resizebox{\linewidth}{!}{
+\begin{tabular}{ccc}
+\raisebox{15mm}{\multirow{2}{*}{\includegraphics[width=.2\linewidth]{./hrnetw48/localization_errors/keypoints_breakdown/overall_keypoint_errors.pdf}}} &
+\includegraphics[width=.35\linewidth]{./hrnetw48/localization_errors/keypoints_breakdown/Miss_kpt_breakdown.pdf}  & \includegraphics[width=.35\linewidth]{./hrnetw48/localization_errors/keypoints_breakdown/Jitter_kpt_breakdown.pdf}\\
+ &
+\includegraphics[width=.35\linewidth]{./hrnetw48/localization_errors/keypoints_breakdown/Inversion_kpt_breakdown.pdf}  & \includegraphics[width=.35\linewidth]{./hrnetw48/localization_errors/keypoints_breakdown/Swap_kpt_breakdown.pdf} \\
+\end{tabular}
+}
+\caption{ {\small \textbf{Predicted Keypoint Analysis.}
+(Left) The overall percentage of the algorithm's predicted keypoints that are good or have a localization error.
+(Right) Breakdown of the localization errors over keypoint types.}}
+\end{figure}
+
+\begin{wrapfigure}{l}{0.5\textwidth}
+\includegraphics[width=\linewidth]{./hrnetw48/localization_errors/keypoints_breakdown/keypoint_breakdown.pdf}
+\caption{ {\small \textbf{Human Keypoint Breakdown.} The frequency of each localization error for every keypoint of the human body.}}
+\end{wrapfigure}
+
+Localization Errors Taxonomy:
+\begin{itemize}
+\item \textbf{Jitter:} small error around the correct keypoint location.
+
+\item \textbf{Miss:} large localization error, the detected keypoint is not within the proximity of any body part.
+
+\item \textbf{Inversion:} confusion between semantically similar parts belonging to the same instance. The detection is in the proximity of the true keypoint location of the wrong body part.
+
+\item \textbf{Swap:} confusion between semantically similar parts of different instances. The detection is within the proximity of a body part belonging to a different person.
+
+\end{itemize}
+
+\clearpage
+
+\begin{figure}[h!]
+\centering
+\resizebox{\linewidth}{!}{
+\begin{tabular}{c|c|c|c}
+\hline
+\textbf{Miss} & \textbf{Swap} &  \textbf{Inversion} & \textbf{Jitter} \\[.75ex]
+\hline\hline
+\includegraphics[width=.25\linewidth,height=.15\paperwidth,keepaspectratio]{./hrnetw48/localization_errors/keypoints_breakdown/miss_0.pdf} &
+\includegraphics[width=.25\linewidth,height=.15\paperwidth,keepaspectratio]{./hrnetw48/localization_errors/keypoints_breakdown/swap_0.pdf} &
+\includegraphics[width=.25\linewidth,height=.15\paperwidth,keepaspectratio]{./hrnetw48/localization_errors/keypoints_breakdown/inversion_0.pdf} &
+\includegraphics[width=.25\linewidth,height=.15\paperwidth,keepaspectratio]{./hrnetw48/localization_errors/keypoints_breakdown/jitter_0.pdf} \\
+\includegraphics[width=.25\linewidth,height=.15\paperwidth,keepaspectratio]{./hrnetw48/localization_errors/keypoints_breakdown/miss_1.pdf} &
+\includegraphics[width=.25\linewidth,height=.15\paperwidth,keepaspectratio]{./hrnetw48/localization_errors/keypoints_breakdown/swap_1.pdf} &
+\includegraphics[width=.25\linewidth,height=.15\paperwidth,keepaspectratio]{./hrnetw48/localization_errors/keypoints_breakdown/inversion_1.pdf} &
+\includegraphics[width=.25\linewidth,height=.15\paperwidth,keepaspectratio]{./hrnetw48/localization_errors/keypoints_breakdown/jitter_1.pdf} \\
+\includegraphics[width=.25\linewidth,height=.15\paperwidth,keepaspectratio]{./hrnetw48/localization_errors/keypoints_breakdown/miss_2.pdf} &
+\includegraphics[width=.25\linewidth,height=.15\paperwidth,keepaspectratio]{./hrnetw48/localization_errors/keypoints_breakdown/swap_2.pdf} &
+\includegraphics[width=.25\linewidth,height=.15\paperwidth,keepaspectratio]{./hrnetw48/localization_errors/keypoints_breakdown/inversion_2.pdf} &
+\includegraphics[width=.25\linewidth,height=.15\paperwidth,keepaspectratio]{./hrnetw48/localization_errors/keypoints_breakdown/jitter_2.pdf} \\
+\includegraphics[width=.25\linewidth,height=.15\paperwidth,keepaspectratio]{./hrnetw48/localization_errors/keypoints_breakdown/miss_3.pdf} &
+\includegraphics[width=.25\linewidth,height=.15\paperwidth,keepaspectratio]{./hrnetw48/localization_errors/keypoints_breakdown/swap_3.pdf} &
+\includegraphics[width=.25\linewidth,height=.15\paperwidth,keepaspectratio]{./hrnetw48/localization_errors/keypoints_breakdown/inversion_3.pdf} &
+\includegraphics[width=.25\linewidth,height=.15\paperwidth,keepaspectratio]{./hrnetw48/localization_errors/keypoints_breakdown/jitter_3.pdf} \\
+\includegraphics[width=.25\linewidth,height=.15\paperwidth,keepaspectratio]{./hrnetw48/localization_errors/keypoints_breakdown/miss_4.pdf} &
+\includegraphics[width=.25\linewidth,height=.15\paperwidth,keepaspectratio]{./hrnetw48/localization_errors/keypoints_breakdown/swap_4.pdf} &
+\includegraphics[width=.25\linewidth,height=.15\paperwidth,keepaspectratio]{./hrnetw48/localization_errors/keypoints_breakdown/inversion_4.pdf} &
+\includegraphics[width=.25\linewidth,height=.15\paperwidth,keepaspectratio]{./hrnetw48/localization_errors/keypoints_breakdown/jitter_4.pdf} \\
+\includegraphics[width=.25\linewidth,height=.15\paperwidth,keepaspectratio]{./hrnetw48/localization_errors/keypoints_breakdown/miss_5.pdf} &
+\includegraphics[width=.25\linewidth,height=.15\paperwidth,keepaspectratio]{./hrnetw48/localization_errors/keypoints_breakdown/swap_5.pdf} &
+\includegraphics[width=.25\linewidth,height=.15\paperwidth,keepaspectratio]{./hrnetw48/localization_errors/keypoints_breakdown/inversion_5.pdf} &
+\includegraphics[width=.25\linewidth,height=.15\paperwidth,keepaspectratio]{./hrnetw48/localization_errors/keypoints_breakdown/jitter_5.pdf} \\
+\includegraphics[width=.25\linewidth,height=.15\paperwidth,keepaspectratio]{./hrnetw48/localization_errors/keypoints_breakdown/miss_6.pdf} &
+\includegraphics[width=.25\linewidth,height=.15\paperwidth,keepaspectratio]{./hrnetw48/localization_errors/keypoints_breakdown/swap_6.pdf} &
+\includegraphics[width=.25\linewidth,height=.15\paperwidth,keepaspectratio]{./hrnetw48/localization_errors/keypoints_breakdown/inversion_6.pdf} &
+\includegraphics[width=.25\linewidth,height=.15\paperwidth,keepaspectratio]{./hrnetw48/localization_errors/keypoints_breakdown/jitter_6.pdf} \\
+\end{tabular}
+}
+\vspace{-4mm}
+\caption{ {\small \textbf{Top Localization Errors.} The detections with the highest number of localization errors of each type.
+The color coding of the detection skeleton is described in Sec. 1. Each image title contains the following information:
+[image\textunderscore id, detection\textunderscore id, detection\textunderscore score, number\textunderscore of\textunderscore errors].
+Errors in the COCO annotations might cause good detections to appear in the above examples.}}
+\end{figure}
+
+\clearpage
+
+% SCORING ERRORS SECTION
+
+% BACKGROUND FALSE POSITIVES SECTION
+
+% BACKGROUND FALSE NEGATIVES SECTION
+
+% SENSITIVITY TO OCCLUSION AND CROWDING SECTION
+
+% SENSITIVITY TO INSTANCE SIZE SECTION
+
+\end{document}
